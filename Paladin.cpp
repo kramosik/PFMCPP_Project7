@@ -1,6 +1,5 @@
 #include "Paladin.h"
 #include "Utility.h"
-#include <random>
 
 // Paladin::Paladin
 Paladin::Paladin(const std::string& name_, int hp, int armor_)

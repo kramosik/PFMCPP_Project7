@@ -105,9 +105,9 @@ void Character::attackInternal(Character& other)
         armor = static_cast<int>(*initialArmorLevel * 1.1);
         attackDamage = static_cast<int>(*initialAttackDamage * 1.1);
 
-        initialHitPoints = std::make_unique<int>(hitPoints);
-        initialArmorLevel = std::make_unique<int>(armor);
-        initialAttackDamage = std::make_unique<int>(attackDamage);
+        *initialHitPoints = hitPoints;
+        *initialArmorLevel = armor;
+        *initialAttackDamage = attackDamage;
 
         std::cout << getName() << " defeated " << other.getName()
                   << " and leveled up!" << std::endl;

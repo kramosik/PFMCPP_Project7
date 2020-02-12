@@ -9,9 +9,6 @@
 
 #include <random>
 
-const int MIN_RANDOM_ITEM = 1;
-const int MAX_RANDOM_ITEM = 5;
-
 std::vector<std::unique_ptr<Item>> makeHelpfulItems(int num)
 {
     std::vector<std::unique_ptr<Item>> items;
@@ -40,20 +37,16 @@ std::vector<std::unique_ptr<Item>> makeDefensiveItems(int num)
 
 std::vector<std::unique_ptr<Item>> makeRandomHelpfulItems()
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(MIN_RANDOM_ITEM, MAX_RANDOM_ITEM);
-
-    return makeHelpfulItems(dist(gen));
+    // need to restrict the maximum number of items or it would take a long time
+    // to actually create them
+    return makeHelpfulItems(std::rand() % 6);
 }
 
 std::vector<std::unique_ptr<Item>> makeRandomDefensiveItems()
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(MIN_RANDOM_ITEM, MAX_RANDOM_ITEM);
-
-    return makeDefensiveItems(dist(gen));
+    // need to restrict the maximum number of items or it would take a long time
+    // to actually create them
+    return makeDefensiveItems(std::rand() % 6);
 }
 
 std::string getCharacterStats(Character* ch)
@@ -131,8 +124,7 @@ void useAttackItem(Character* character, Item* item)
         // multiplied value. check Character.h for available member functions
         // you can use.
         auto atkDamage = ch->getAttackDamage();
-        ch->boostAttackDamage(
-            static_cast<int>(atkDamage * item->getBoost() * 10));
+        ch->boostAttackDamage(static_cast<int>(atkDamage * item->getBoost()));
     }
     else if (auto* ch = dynamic_cast<Dragon*>(character))
     {
